@@ -1,0 +1,522 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Project6v2.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+        
+.footer-distributed{
+	background: #06283D;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+	padding: 20px 50px;
+    position:relative;
+    bottom:0px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left{
+	width: 40%;
+}
+
+/* The company logo */
+
+.footer-distributed h3{
+	color:  #ffffff;
+	font: normal 36px 'Open Sans', cursive;
+	margin: 0;
+}
+
+.footer-distributed h3 span{
+	color:  #39B5E0;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin: 20px 0 12px;
+	padding: 0;
+}
+
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+  font-weight:400;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+	color:  white;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+	width: 35%;
+}
+
+.footer-distributed .footer-center i{
+	background-color:  #06283D83b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+  font-weight:400;
+	vertical-align: middle;
+	margin:0;
+}
+
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+	color:  #39B5E0;
+	text-decoration: none;
+}
+
+.footer-distributed .footer-links a:before {
+  content: "|";
+  font-weight:300;
+  font-size: 20px;
+  left: 0;
+  color: #fff;
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.footer-distributed .footer-links .link-1:before {
+  content: none;
+}
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+	width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+	display: block;
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+       @media (max-width: 880px) {
+
+           .footer-distributed {
+               font: bold 14px sans-serif;
+           }
+
+               .footer-distributed .footer-left,
+               .footer-distributed .footer-center,
+               .footer-distributed .footer-right {
+                   display: block;
+                   width: 100%;
+                   margin-bottom: 40px;
+                   text-align: center;
+               }
+               .footer-distributed h3{
+	color:  #ffffff;
+	font: normal 22px 'Open Sans', cursive;
+	margin: 0;
+}
+       }
+	    </style>
+     <style>
+
+       .flex-wrapper {
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+        .single-chart {
+            width: 33%;
+            justify-content:space-around;
+        }
+
+        .circular-chart {
+            display: block;
+            margin: 10px auto;
+            max-width: 80%;
+            max-height: 250px;
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: #eee;
+            stroke-width: 3.8px;
+        }
+
+        .circle {
+            fill: none;
+            stroke-width: 2.8px;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+        }
+
+        @keyframes progress {
+            0% {
+                stroke-dasharray: 0 100;
+            }
+        }
+
+        .circular-chart.orange .circle {
+            stroke: #ff9f00;
+        }
+
+        .circular-chart.green .circle {
+            stroke: #4CC790;
+        }
+
+        .circular-chart.blue .circle {
+            stroke: #3c9ee5;
+        }
+
+        .percentage {
+            fill: #666;
+            font-family: sans-serif;
+            font-size: 0.5em;
+            text-anchor: middle;
+        }
+
+       /*************************************/
+       .ordertable{
+           width:80%;
+           margin-left:10%;
+           text-align:center;
+       }
+       .marrL{margin-left:15%}
+      .wizad{
+          margin-left:-2.7%;
+          margin-top:-40px;
+      }
+       .divv {
+           width:100%;
+           text-align:center;
+       }
+       .grr{
+           margin-left:100px;
+       }
+           .boxpro{
+            width:70%;
+            margin-left:15%;
+            margin-top:60px;
+            height:600px;
+            background-color:#DFF6FF;
+            border:2px solid #06283D;
+            border-radius:5px;
+        }
+           .boxpro2{
+            width:70%;
+            margin-left:15%;
+            margin-top:60px;
+            height:750px;
+            background-color:#DFF6FF;
+            border:2px solid #06283D;
+            border-radius:5px;
+        }
+        .infopro {
+           /*width: 90%;*/
+           border-radius:5px;
+           float:left;
+           height: 25px;
+           border: 1px solid #06283D;
+           /*margin-top:20px;*/
+           margin-left: 10%;
+           padding:5px;
+        }
+        .flopro{
+            margin-top:15px;
+            margin-left:15px;
+        }
+        .titpro{
+            font-family:'Times New Roman';
+            font-size:25px;
+            float:left;
+            margin-left:19px;
+            font-style:italic;
+            font-weight:bold;
+        }
+        .perdiv{
+            width:100%;
+            margin-top:75px;
+        }
+       .admIMG {
+           width:80%;
+            margin-left: 5%;
+           height:510px;
+           margin-top:60px;
+       }
+        .percUlab{
+float:left;
+font-style:italic;
+font-family:"Times New Roman" ;font-size:25px;
+color:#06283D;
+margin-left:155px;
+        }
+         .percPlab{
+float:right;
+font-style:italic;
+font-family:"Times New Roman" ;font-size:25px;
+color:#06283D;
+margin-right:155px;
+        }
+
+       @media only screen and (min-device-width:0px) and (max-device-width:480px) {
+            .boxpro2 {
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 60px;
+    height: 845px;
+    background-color: #DFF6FF;
+    border: 2px solid #06283D;
+    border-radius: 5px;
+}
+            .single-chart {
+            width: 50%;
+            justify-content:space-around;
+        }
+
+          flex-wrapper {
+    display: flex;
+    flex-flow: column;
+}
+          .wizad {
+    margin-left: -13.7%;
+    margin-top: -39px;
+}
+       }
+       @media (min-width: 481px) and (max-width:768px) {
+                  .marrL{margin-left:14.5%}
+
+           .boxpro2 {
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 60px;
+    height: 845px;
+    background-color: #DFF6FF;
+    border: 2px solid #06283D;
+    border-radius: 5px;
+}
+            .wizad {
+    margin-left: -5.7%;
+    margin-top: -39px;
+}
+       }
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+ 
+
+  .gr{
+      color:dimgrey;
+  }
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:rgb(6, 41, 61); color:white;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                         <li><a runat="server" href="https://localhost:44300/Account/homepage">All Donations</a></li>
+                    </ul>
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server"  title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            <%if (Context.User.IsInRole("Admin")){ %>
+                         <li><a runat="server" href="https://localhost:44300/userinfo">Dashbord</a></li><%} %>
+                                   <%if (Context.User.IsInRole("Provider")){ %>
+                         <li><a runat="server" href="https://localhost:44300/providerProfile">Profile</a></li><%} %>
+                                   <%if (Context.User.IsInRole("User")){ %>
+                         <li><a runat="server" href="https://localhost:44300/Account/Manage">Profile</a></li><%} %>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </div>
+            </div>
+        </div>
+       
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+           <footer class="footer-distributed">
+
+			<div class="footer-left">
+				<h3>HELPING<span>INFINITY</span></h3>
+				<h3><%--Company<span>logo</span>--%><img src="images/l.png" style="margin-right:30px; width:111PX; "/></h3>
+
+				<p class="footer-links">
+					<a href="#" class="link-1">Home</a>
+					
+					<a href="#">Blog</a>
+				
+					<a href="#">Pricing</a>
+				
+					<a href="#">About</a>
+					
+					<a href="#">Faq</a>
+					
+					<a href="#">Contact</a>
+				</p>
+
+				<p class="footer-company-name">HELPING INFINITY Â© 2023</p>
+			</div>
+
+			<div class="footer-center">
+
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>444 S. Cedros Ave</span> Jordan, Irbid-Ajloun</p>
+				</div>
+
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+962770162323</p>
+				</div>
+
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:support@company.com">support@company.com</a></p>
+				</div>
+
+			</div>
+
+			<div class="footer-right">
+
+				<p class="footer-company-about">
+					<span>About the company</span>
+					It's a donation site that receives and donates medical equipment to people who need it to keep the community safe, loving, and cooperative
+				</p>
+
+				<div class="footer-icons">
+
+					<a href="#"><img  style="height:35px;"  src="images/facebook.png" /></a>
+					<a href="#"><img  style="height:35px;"  src="images/instagram.png" /></a>
+					<a href="#"><img  style="height:35px;"  src="images/linkedin.png" /></a>
+					<a href="#"><img  style="height:35px;"  src="images/twitte.png" /></a>
+
+				</div>
+
+			</div>
+
+		
+            </footer>
+    </form>
+</body>
+</html>
